@@ -17,6 +17,7 @@ const bindActionCreator = (creator, dispatch) => {
 // 通过context传递store
 const Context = createContext()
 
+
 export const Provider = ({ store, children }) => {
   return (<Context.Provider value={store} >
     {children}
@@ -30,17 +31,17 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (Cmp) => props =
   // 优雅的使用
   const forceUpdate = useForceUpdate()
   const store = useContext(Context)
-  const {getState, dispatch, subscribe} = store;
+  const { getState, dispatch, subscribe } = store;
 
   const stateProps = mapStateToProps(getState())
 
   let dispatchProps = {}
-  if(typeof mapDispatchToProps === 'object') {
+  if (typeof mapDispatchToProps === 'object') {
     dispatchProps = {
       dispatch,
       ...bindActionCreators(mapDispatchToProps, dispatch)
     }
-  } else if(typeof mapDispatchToProps === 'function') {
+  } else if (typeof mapDispatchToProps === 'function') {
     dispatchProps = {
       dispatch,
       ...mapDispatchToProps(dispatch)
@@ -52,17 +53,42 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (Cmp) => props =
       forceUpdate()
     })
     return () => {
-      if(unSubscribe) {
+      if (unSubscribe) {
         unSubscribe()
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store])
-
   return (
     <Cmp {...props} {...stateProps} {...dispatchProps} />
   )
+}
 
+// useDispatch, useSelector
+
+export const useDispatch = () => {
+  const store = useContext(Context);
+  return store.dispatch;
+}
+
+export const useSelector = (selector) => {
+  const forceUpdate = useForceUpdate()
+  const store = useContext(Context)
+  const {getState} = store
+  // console.log(store.getState());
+  useLayoutEffect(() => {
+    const unSubscribe = store.subscribe(() => {
+      forceUpdate()
+    })
+    return () => {
+      if (unSubscribe) {
+        unSubscribe()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store])
+  const state = selector(getState())
+  return state;
 }
 
 const useForceUpdate = () => {

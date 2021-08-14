@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useLayoutEffect } from 'react';
 
 
-export function bindActionCreators(creators, dispatch) {
+export const bindActionCreators = (creators, dispatch) => {
   let obj = {}
   // 核心逻辑
   for (const key in creators) {

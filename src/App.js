@@ -5,10 +5,10 @@ import './App.less'
 // import HocPage from './pages/HocPage';
 // import MyRcForm from './pages/MyRcForm';
 // import PopUpPage from './pages/PopUpPage';
-// import ReduxPage from './pages/ReduxPage';
+import ReduxPage from './pages/ReduxPage';
 // import HooksPage from './pages/HooksPage';
 // import ReactReduxPage from './pages/ReactReduxPage';
-import ReactReduxHooksPage from './pages/ReactReduxHooksPage';
+// import ReactReduxHooksPage from './pages/ReactReduxHooksPage';
 
 function App() {
   return (
@@ -17,10 +17,10 @@ function App() {
       {/* <HocPage/> */}
       {/* <MyRcForm/> */}
       {/* <PopUpPage/> */}
-      {/* <ReduxPage/> */}
+      <ReduxPage/>
       {/* <HooksPage/> */}
       {/* <ReactReduxPage/> */}
-      <ReactReduxHooksPage />
+      {/* <ReactReduxHooksPage /> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

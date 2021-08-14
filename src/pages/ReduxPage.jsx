@@ -14,9 +14,6 @@ export default function ReduxPage() {
     };
   }, []);
   const add = () => {
-    // console.log('====================================');
-    // console.log(store.dispatch);
-    // console.log('====================================');
     store.dispatch({ type: "ADD", payload: 100 });
   };
   const asyncAdd = () => {

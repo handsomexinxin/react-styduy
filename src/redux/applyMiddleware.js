@@ -1,6 +1,7 @@
 const applyMiddleware = (...middlewares) => {
   return createStore => reducer => {
 
+    // 拿到store(store中有getState,dispatch,subscribe)
     const store = createStore(reducer);
 
     let dispatch = store.dispatch;
@@ -14,7 +15,7 @@ const applyMiddleware = (...middlewares) => {
     }
     const middlewareChain = middlewares.map(middleware => middleware(midApi))
 
-    // 重新赋值一个函数 因为中间件不止一个  所以需要像洋葱模型一样执行
+    // 重新赋值一个函数 因为中间件不止一个  所以需要像洋葱模型一样执行 在最后一个中间件收到的参数将是传入的store.dispatch
     dispatch = compose(...middlewareChain)(store.dispatch)
     // console.log('dispatchdispatchdispatch', dispatch);
 

@@ -1,11 +1,10 @@
-export default function logger({getState, dispatch}) {
-  // 使用compose聚合函数之后  每一次会将下一个要执行的中间件操作通过参数传入
+export default function thunk({getState, dispatch}) {
   return next => action => {
-    // console.log('thunk', next, action);
+    console.log('thunk', next, action);
     if(typeof action === 'function') {
+      //在这里调用action之后  actions内部会调用dispatch  所以会导致所有的中间件重新执行
       return action(dispatch, getState)
     }
-    // 每次的next就是下一个中间件，通过执行将action传入
     return next(action);
   }
 }

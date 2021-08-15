@@ -17,7 +17,7 @@ export function countReducer(state = 0, action) {
   }
 }
 // logger要作为中间件的最后一个参数  不然不能保证action是一个原始传入的对象
-const store = createStore(combineReducers({counter: countReducer}), applyMiddleware(thunk, redux_promise));
+const store = createStore(combineReducers({counter: countReducer}), applyMiddleware(thunk, redux_promise, logger));
 
 function logger({getState, dispatch}) {
   // 使用compose聚合函数之后  每一次会将下一个要执行的中间件操作通过参数传入

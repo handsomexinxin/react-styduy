@@ -49,7 +49,7 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (Cmp) => props =
   }
 
   useLayoutEffect(() => {
-    const unSubscribe = store.subscribe(() => {
+    const unSubscribe = subscribe(() => {
       forceUpdate()
     })
     return () => {
